@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/posting',[PostControllers::class,'insert'])->name('post');
 
      Route::get('/update/{id}', [PostControllers::class,'edit'])->name('edit');
-    Route::post('/set/{id}', [PostControllers::class,'update'])->name('update');
+    Route::put('/set/{id}', [PostControllers::class,'update'])->name('update');
 });
 
 Route::get('/dashboard', function () {

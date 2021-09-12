@@ -51,7 +51,17 @@ class PostControllers extends Controller
             $p =  Posts::find($id);
             $p->title = $req->title;
             $p->desc = $req->desc;
-            $p->save();
+            if($req->hasfile('image')){
+                $destination = 'public_path("/photos")'.$p->image;
+                if(File::exists($destination)){
+                    File::delete($destination);
+                }
+
+                $filename = $req->image->getClientOriginalName();
+                $req->image->move(public_path("/photos"),$filename);
+            }
+
+            $p->update();
 
             // Posts::create($validateData);
             return redirect()->back();
